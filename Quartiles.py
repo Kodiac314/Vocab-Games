@@ -5,17 +5,16 @@ from random import sample, shuffle
 pygame.init()
 
 char = str
-col = tuple[int, int, int]
+Color = tuple[int, int, int]
 
 QUARTILE_MASTER_LIST: list[str] = [
-    ['de tec tiv es', 'sus pe ct ing', 'wea pon iza tion', 'clue le ssn ess', 'cl oak ro oms'],
-    ['co mp ete ntly', 'de pl et ion', 'hu mi lia tion', 'ad va nt ages', 'un wil ling ness'],
-    ['re je ct ion', 'li gh tn ing', 'co nv er sion', 'di st ri cts', 'mi sl ea ding'],
-    
-    ['ant iv en om', 'def ene str ate', 'wil dc att ing', 'wit chc ra ft', 'tch ot ch ke'], # 'en ch ant ing'
-    ['in sin ua te', 'ma lle ab le', 'ran don ne ur', 'vi sc ou nt', 'la rg es se'] # 'sc ou rg es', 'la nt ur ne', 'ran don ne es'
-    ]
-QUARTILE_MASTER_LIST: list[str] = sample(QUARTILE_MASTER_LIST, 1)[0]
+    'de tec tiv es', 'sus pe ct ing', 'wea pon iza tion', 'clue le ssn ess', 'cl oak ro oms',
+    'co mp ete ntly', 'de pl et ion', 'hu mi lia tion', 'ad va nt ages', 'un wil ling ness',
+    're je ct ion', 'li gh tn ing', 'co nv er sion', 'di st ri cts', 'mi sl ea ding'
+]
+# Hard Mode
+# ['ant iv en om', 'def ene str ate', 'wil dc att ing', 'wit chc ra ft', 'tch ot ch ke'], # 'en ch ant ing'
+# ['in sin ua te', 'ma lle ab le', 'ran don ne ur', 'vi sc ou nt', 'la rg es se'] # 'sc ou rg es', 'la nt ur ne', 'ran don ne es'
 
 
 """
@@ -27,15 +26,15 @@ WIDTH: int = 800
 HEIGHT: int = 620
 
 # Board graphics (colors)
-BG_COL: col = (170, 170, 170)
-TILE_COL: col = (200, 200, 200)
-SELECTED_COL: col = (150, 150, 150)
-FOUND_COL: col = (200, 220, 200)
-TEXT_COL: col = (0, 0, 0)
+BG_COL: Color = (170, 170, 170)
+TILE_COL: Color = (200, 200, 200)
+SELECTED_COL: Color = (150, 150, 150)
+FOUND_COL: Color = (200, 220, 200)
+TEXT_COL: Color = (0, 0, 0)
 
 # Tile dimensions
-TILE_LEN: float = min(WIDTH / 4.5, HEIGHT / 6.7)
-SPACING: float = min(WIDTH / 45, HEIGHT / 67)
+TILE_LEN: int = int(min(WIDTH / 4.5, HEIGHT / 6.7))
+SPACING: int = int(min(WIDTH / 45, HEIGHT / 67))
 TILE_CORNER_RADIUS: int = round(TILE_LEN / 4)
 
 WIDTH, HEIGHT = TILE_LEN * 4 + SPACING * 5, TILE_LEN * 6 + SPACING * 7

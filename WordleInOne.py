@@ -1,9 +1,9 @@
-import random
+from WordleInOneFinder import GUESSES, generate_wordle_in_one
 import pygame
 pygame.init()
 
 # --- CONFIGURATION & CONSTANTS ---
-NUM_GUESSES = 6
+NUM_GUESSES = 2
 WORD_LENGTH = 5
 
 CELL_SIZE = 60
@@ -41,15 +41,10 @@ with open("WordleWordsList.txt", "r", encoding="utf-8") as f:
     for line in f:
         WORDS.append( line.strip().upper() )
 
-GUESSES = []
-with open("WordleGuessesList.txt", "r", encoding="utf-8") as f:
-    for line in f:
-        GUESSES.append( line.strip().upper() )
-
-
-class WordleGame:
+class WordleInOneGame:
     def __init__(self):
-        self.target_word = random.choice(WORDS)
+        guess, self.target_word = generate_wordle_in_one()
+
         self.guesses = [[""] * WORD_LENGTH for _ in range(NUM_GUESSES)]
         self.feedback = [[COLOR_BG] * WORD_LENGTH for _ in range(NUM_GUESSES)]
         self.row_idx = 0
@@ -57,6 +52,10 @@ class WordleGame:
         self.game_over = False
         self.won = False
         self.key_status = {}
+
+        for c in guess:
+            self.handle_key_input(c)
+        self.submit_guess()
 
     def handle_key_input(self, key_name: str) -> None:
         if self.game_over:
@@ -187,10 +186,7 @@ def main():
     pygame.display.set_caption("Wordle")
     # clock = pygame.time.Clock()
 
-    game = WordleGame()
-    print(game.target_word)
-    game.target_word = 'GUSTO'
-    print(game.target_word)
+    game = WordleInOneGame()
 
     running = True
     while running:
@@ -211,7 +207,7 @@ def main():
                     game.handle_key_input(event.unicode.upper())
                 elif event.key == pygame.K_SPACE:
                     if game.game_over:
-                        game = WordleGame()
+                        game = WordleInOneGame()
 
         render(game, screen)
         pygame.display.flip()
